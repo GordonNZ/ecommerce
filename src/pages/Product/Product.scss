@@ -70,5 +70,35 @@
       border: none;
       font-weight: 500;
     }
+
+    .links {
+      display: flex;
+      gap: 20px;
+
+      .item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #2879f3;
+        font-size: 14px;
+      }
+    }
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      color: grey;
+      font-size: 14px;
+      margin-top: 30px;
+      hr {
+        width: 200x;
+        border: 1px solid lightgray;
+      }
+    }
+
+    hr {
+      width: 200x;
+      border: 1px solid lightgray;
+    }
   }
 }
