@@ -1,42 +1,47 @@
 import React from 'react';
-import './FeaturedProducts.scss';
 import Card from '../Card/Card';
+import './FeaturedProducts.scss';
+import useFetch from '../../hooks/useFetch';
 
 const FeaturedProducts = ({ type }) => {
-  const data = [
-    {
-      id: 1,
-      img: 'https://images.pexels.com/photos/914668/pexels-photo-914668.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-      title: 'Grey Set',
-      isNew: true,
-      oldPrice: 49,
-      price: 30,
-    },
-    {
-      id: 2,
-      img: 'https://images.pexels.com/photos/6310924/pexels-photo-6310924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-      title: 'Premium Hoodie',
-      isNew: true,
-      oldPrice: 29,
-      price: 22,
-    },
-    {
-      id: 3,
-      img: 'https://images.pexels.com/photos/2072453/pexels-photo-2072453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-      title: 'Denim Jacket',
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 4,
-      img: 'https://images.pexels.com/photos/12156299/pexels-photo-12156299.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-      title: 'Relaxed Pants',
-      isNew: false,
-      oldPrice: 19,
-      price: 12,
-    },
-  ];
+  // const data = [
+  //   {
+  //     id: 1,
+  //     img: 'https://images.pexels.com/photos/914668/pexels-photo-914668.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  //     title: 'Grey Set',
+  //     isNew: true,
+  //     oldPrice: 49,
+  //     price: 30,
+  //   },
+  //   {
+  //     id: 2,
+  //     img: 'https://images.pexels.com/photos/6310924/pexels-photo-6310924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  //     title: 'Premium Hoodie',
+  //     isNew: true,
+  //     oldPrice: 29,
+  //     price: 22,
+  //   },
+  //   {
+  //     id: 3,
+  //     img: 'https://images.pexels.com/photos/2072453/pexels-photo-2072453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  //     title: 'Denim Jacket',
+  //     isNew: true,
+  //     oldPrice: 19,
+  //     price: 12,
+  //   },
+  //   {
+  //     id: 4,
+  //     img: 'https://images.pexels.com/photos/12156299/pexels-photo-12156299.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  //     title: 'Relaxed Pants',
+  //     isNew: false,
+  //     oldPrice: 19,
+  //     price: 12,
+  //   },
+  // ];
+
+  const { data, loading, error } = useFetch(
+    `/products?populate=*&[filters][type][$eq]=${type}`
+  );
   return (
     <div className='featuredProducts'>
       <div className='top'>
@@ -51,9 +56,11 @@ const FeaturedProducts = ({ type }) => {
         </p>
       </div>
       <div className='bottom'>
-        {data.map((item) => (
-          <Card key={item.id} item={item} />
-        ))}
+        {error
+          ? 'something went wrong'
+          : loading
+          ? 'loading'
+          : data?.map((item) => <Card key={item.id} item={item} />)}
       </div>
     </div>
   );
